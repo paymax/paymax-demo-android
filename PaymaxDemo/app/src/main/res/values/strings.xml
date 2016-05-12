@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PayRight</string>
+    <string name="whchat_txt">微信支付</string>
+    <string name="alipay_txt">支付宝支付</string>
+    <string name="payment_txt">金额（元）</string>
+    <string name="default_amount">0.01</string>
+    <string name="bt_ok">确认支付</string>
+</resources>

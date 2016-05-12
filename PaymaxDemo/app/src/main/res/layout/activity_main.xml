@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.swwx.payright.demo.MainActivity"
+    android:background="@color/colorBackgroud"
+    android:id="@+id/root">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayoutUp1">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
+        <LinearLayout
+            android:id="@+id/linearLayoutUp2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/et_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/colorEditText"
+                android:text="@string/payment_txt"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorEditText"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/default_amount"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCenter1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutUp1"
+        android:layout_marginTop="33dp"
+        >
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCenter2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:background="@color/colorEditText"
+            >
+            <ImageView
+                android:id="@+id/iv_wx"
+                android:layout_marginLeft="15dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorEditText"
+                android:text="@string/whchat_txt"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" />
+            <ImageButton
+                android:id="@+id/ibWechat"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="onChannelClick"
+                android:layout_marginRight="15dp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/colorLine" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCenter3"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:background="@color/colorEditText"
+            >
+
+            <ImageView
+                android:id="@+id/iv_ali"
+                android:layout_marginLeft="15dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorEditText"
+                android:layout_gravity="center_vertical"
+                android:text="@string/alipay_txt"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" />
+            <ImageButton
+                android:id="@+id/ibAlipay"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="onChannelClick"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLine" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:text="@string/bt_ok"
+        android:textColor="@color/colorEditText"
+        android:background="@drawable/button_style"
+        android:id="@+id/bt_ok"
+        android:onClick="onCharge"/>
+
+
+</RelativeLayout>
