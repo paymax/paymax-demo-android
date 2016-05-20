@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        layout="@layout/title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:paddingLeft="17dp"
+        android:text="你正在安全支付环境中 ,请填写本人银行卡"
+        android:textColor="@color/lkl_black"
+        android:textSize="11sp" />
+
+    <RelativeLayout
+        android:id="@+id/rly_bankno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/tv_bankno_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:text="卡号"
+            android:textColor="@color/lkl_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_cardno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/tv_bankno_left"
+            android:background="@null"
+            android:hint="银行卡号"
+            android:inputType="number"
+            android:textColor="@color/lkl_gray"
+            android:textColorHint="@color/main_hint_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="66dp"
+        android:background="@drawable/bg_corner_btn_gray_little"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tv_have_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:layout_marginTop="27dp"
+        android:gravity="center"
+        android:text="我用过拉卡拉支付"
+        android:textColor="@color/lkl_black"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_to_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:background="@drawable/bg_corner_lkl_blue"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="去登录"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+</LinearLayout>

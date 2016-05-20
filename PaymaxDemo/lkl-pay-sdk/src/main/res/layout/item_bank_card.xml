@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/item_left"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_forty_four" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_bankCardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/lkl_black"
+                android:textSize="@dimen/text_dialog_title" />
+
+            <TextView
+                android:id="@+id/tv_bankCardType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_ten"
+                android:text=""
+                android:textColor="@color/lkl_black"
+                android:textSize="@dimen/text_dialog_title" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ASTERISK"
+                android:textColor="@color/lkl_black"
+                android:textSize="@dimen/text_dialog_title" />
+            
+            <TextView
+                android:id="@+id/tv_lastNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lkl_black"
+                android:textSize="@dimen/text_dialog_title" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_choose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_check_box"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:button="@null" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/item_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_forty_four"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="@string/DELETE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_dialog_title" />
+    </LinearLayout>
+
+</LinearLayout>

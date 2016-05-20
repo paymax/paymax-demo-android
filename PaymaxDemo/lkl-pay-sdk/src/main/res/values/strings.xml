@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="sure">确定</string>
+    <string name="no_internet">当前无网络</string>
+    <string name="internet_set">网络设置</string>
+    <string name="check_net">检查网络</string>
+    <string name="cancel">取消</string>
+    <string name="check_memory_card">检测内存卡</string>
+    <string name="please_check_memory_card">请检查内存卡</string>
+    <string name="setting">设置</string>
+    <!-- 二维码 -->
+    <string name="crash_toast">应用发生异常，即将退出！</string>
+    <!-- 主页 -->
+    <string name="name">姓名</string>
+    <string name="hint_nm">持卡人姓名</string>
+    <string name="mobile">手机号</string>
+    <string name="debit">储蓄卡</string>
+    <string name="credit">信用卡</string>
+    <string name="hint_mobile">银行预留手机号</string>
+    <string name="effective_term">有效期</string>
+    <string name="agree">我已阅读并同意</string>
+    <!-- 标题 -->
+	<string name="title_add_bank">添加银行卡</string>
+	<string name="title_choose_bank">选择银行</string>
+    <!-- 注册 -->
+    <string name="ERROR_MOB_LENGTH">请输入11位手机号码</string>
+    <string name="SEND_CODE_SUCCESS">短信验证码已发送</string>
+    <string name="ERROR_CODE_LENGTH">请输入4位验证码</string>
+    <string name="ERROR_NEW_PASS_NULL">新密码不能为空</string>
+    <string name="ERROR_NEW_PASS_LENGTH">新密码长度不能小于8位,不能大于16位</string>
+    <string name="ERROR_CONFIRM_NEW_PASS_NULL">确认新密码不能为空</string>
+    <string name="ERROR_CONFIRM_NEW_PASS_LENGTH">确认新密码长度不能小于8位,不能大于16位</string>
+    <string name="ERROR_PASS_MATCH">两次新密码输入不一致</string>
+    <string name="ERROR_PWD_ILLEGAL">密码只能由字母和数字组成</string>
+    <string name="Q_FATHER_BORN">我父亲的出生地</string>
+    <string name="Q_MOTHER_BORN">我母亲的出生地</string>
+    <string name="Q_ME_BORN">我的出生地</string>
+    <string name="Q_MY_TEACHER">我的初中班主任</string>
+    <string name="Q_SCHOOL_NM">小学学校名字</string>
+    <string name="Q_MY_FRIEND">高中死党名字</string>
+    <string name="ERROR_ANSWER_NULL">答案不能为空</string>
+
+    <!-- toast -->
+    <string name="tv_protocol_quick_symbol">《拉卡拉服务协议》</string>
+
+    <!-- 拉卡拉 -->
+    <string name="CHOOSE_PAY_TYPE">选择支付方式</string>
+    <string name="BANK_CARD">银行卡</string>
+    <string name="USE_NEW_BANK_CARD">+使用新银行卡</string>
+    <string name="MERCHANT_CODE">商户编号</string>
+    <string name="MERCHANT_NAME">商户名称</string>
+    <string name="ORDER_NUMBER">订单编号</string>
+    <string name="ORDER_DATA">订单日期</string>
+    <string name="PAY_MONEY">支付金额</string>
+    <string name="YUAN">元</string>
+    <string name="SURE_PAY">确认支付</string>
+    <string name="ASTERISK">* * * *</string>
+    <string name="DELETE">删除</string>
+    <string name="PAY_TYPE">支付方式：</string>
+    <string name="FORGET_PWD">忘记密码？</string>
+    <string name="CREAT_USER">已为您创建拉卡拉支付账户，账户号为</string>
+
+</resources>

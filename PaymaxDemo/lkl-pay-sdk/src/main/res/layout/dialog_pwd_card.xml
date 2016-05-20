@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lly_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_fifteen"
+        android:layout_marginRight="@dimen/dp_fifteen"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_forty" >
+
+            <ImageView
+                android:id="@+id/iv_dismiss"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/dismiss" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="0.01元"
+                android:textColor="@color/lkl_black"
+                android:textSize="@dimen/text_dialog_title" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rly_change"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_forty_four"
+            android:orientation="horizontal" >
+            
+            <TextView 
+                android:id="@+id/tv_payDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:text="@string/PAY_TYPE"
+                android:textSize="@dimen/text_mid_size"
+                android:textColor="@color/main_color"/>
+
+            <TextView
+                android:id="@+id/tv_BankName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_payDes"
+                android:text=""
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_mid_size" />
+
+            <TextView
+                android:id="@+id/tv_bankCardType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_BankName"
+                android:layout_marginLeft="@dimen/dp_ten"
+                android:text=""
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_mid_size" />
+            
+            <TextView
+                android:id="@+id/tv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_bankCardType"
+                android:text="@string/ASTERISK"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_mid_size" />
+            
+            <TextView
+                android:id="@+id/tv_lastNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv_star"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_mid_size" />
+            
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/to_right" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dp_fifteen"
+            android:layout_marginRight="@dimen/dp_fifteen"
+            android:background="@color/main_div_color" />
+        
+        <TextView 
+            android:id="@+id/tv_phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_dialog_title"
+            android:textColor="@color/lkl_black"
+            android:text=""/>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dp_fifteen"
+            android:layout_marginRight="@dimen/dp_fifteen"
+            android:background="@color/main_div_color" />
+		<RelativeLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="44dp"
+		    android:layout_marginLeft="15dp"
+		    android:layout_marginRight="15dp">
+		    <EditText 
+       	        android:id="@+id/et_codeNum"
+       	        android:layout_width="match_parent"
+       	        android:layout_height="match_parent"
+       	        android:layout_marginLeft="@dimen/dp_ten"
+       	        android:layout_marginRight="@dimen/dp_ten"
+       	        android:textColor="@color/lkl_black"
+       	        android:textSize="@dimen/text_dialog_title"
+       	        android:hint="验证码"
+       	        android:textColorHint="@color/main_hint_color"
+       	        android:background="@null"
+       	        android:inputType="number"
+       	        android:maxLength="6"/>
+		    <Button 
+       	        android:id="@+id/btn_sendCode"
+       	        android:layout_width="70dp"
+       	        android:layout_height="30dp"
+       	        android:layout_alignParentRight="true"
+       	        android:layout_centerVertical="true"
+       	        android:background="@drawable/bg_corner_lkl_blue"
+       	        android:text="发送验证码"
+       	        android:textSize="12sp"
+       	        android:textColor="@color/white"/>
+		</RelativeLayout>
+		<View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dp_fifteen"
+            android:layout_marginRight="@dimen/dp_fifteen"
+            android:background="@color/main_div_color" />
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_fifteen"
+            android:visibility="gone">
+            <TextView 
+                android:id="@+id/tv_inputTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="密码输入错误，还可以输入4次"
+                android:textSize="@dimen/text_mid_size"
+                android:textColor="@color/red"
+                android:visibility="invisible"/>
+            <TextView 
+                android:id="@+id/tv_forgetPwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/FORGET_PWD"
+                android:textSize="@dimen/text_mid_size"
+                android:textColor="@color/main_color"/>
+        </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_commit_pay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_forty_four"
+                android:layout_margin="@dimen/dp_fifteen"
+                android:background="@drawable/bg_corner_lkl_blue"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_btn_size" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="safe_question">
+        <item>@string/Q_FATHER_BORN</item>
+        <item>@string/Q_MOTHER_BORN</item>
+        <item>@string/Q_ME_BORN</item>
+        <item>@string/Q_MY_TEACHER</item>
+        <item>@string/Q_SCHOOL_NM</item>
+        <item>@string/Q_MY_FRIEND</item>
+    </string-array>
+</resources>

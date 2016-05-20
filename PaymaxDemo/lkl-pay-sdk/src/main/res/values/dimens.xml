@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+ <resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- 拉卡拉 字体 -->
+
+     <dimen name="text_dialog_title">16sp</dimen>
+    <dimen name="text_activity_title">20sp</dimen>
+    <dimen name="text_btn_size">17sp</dimen>
+     <dimen name="text_mid_size">14sp</dimen>
+
+
+    <!-- 拉卡拉 布局距离 -->
+    <dimen name="dp_ten">10dp</dimen>
+    <dimen name="dp_twenty_five">25dp</dimen>
+    <dimen name="dp_fifteen">15dp</dimen>
+    <dimen name="dp_forty_four">44dp</dimen>
+    <dimen name="dp_twenty">20dp</dimen>
+    <dimen name="dp_one_hundred">100dp</dimen>
+    <dimen name="dp_thirty_five">35dp</dimen>
+    <dimen name="dp_forty">40dp</dimen>
+    <dimen name="dp_sixty_six">66dp</dimen>
+    <dimen name="dp_fifty_five">55dp</dimen>
+    <dimen name="dp_eighty_one">81dp</dimen>
+    <dimen name="dp_thirty_nine">39dp</dimen>
+    <dimen name="dp_seventy_five">75dp</dimen>
+
+    <!-- 加载圈 -->
+
+    <dimen name="loading_dialog_width">120dip</dimen>
+    <dimen name="loading_dialog_height">120dip</dimen>
+    <dimen name="loading_dialog_content_size">13sp</dimen>
+    <dimen name="loading_dialog_ds60">28dip</dimen>
+    <dimen name="loading_dialog_ds24">12dip</dimen>
+    <dimen name="loading_dialog_ds14">7dip</dimen>
+
+    <!-- new -->
+
+    <dimen name="title_height">60dp</dimen>
+    <dimen name="common_font_size">14sp</dimen>
+    <dimen name="action_bar_height">48dp</dimen>
+    <dimen name="title_margin">10dp</dimen>
+    <!-- 通用高度 按钮及表格每行等 -->
+
+    <dimen name="height_normal">44dp</dimen>
+
+</resources>

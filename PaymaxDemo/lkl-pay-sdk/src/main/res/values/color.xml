@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 拉卡拉主色调 -->
+    <color name="main_color">#28a6ee</color>
+    <color name="main_hint_color">#a6a6a6</color>
+    <color name="main_lable_color">#242424</color>
+    <color name="main_div_color">#e0e0e0</color>
+    <color name="main_bg_color">#f0eff5</color>
+    <color name="white">#ffffff</color>
+    <color name="border">#FFD9D9D9</color>
+    <!-- 拉卡拉字体颜色 -->
+    <color name="lkl_black">#777777</color>
+    <color name="lkl_blue">#28a6ee</color>
+    <color name="lkl_gray">#a6a6a6</color>
+    <color name="red">#f63d3d</color>
+    
+
+    <!-- 标题背景色 -->
+    <color name="title_bg">#1cabeb</color>
+    <!-- 银行卡切换背景 -->
+    <color name="ds_orange">#1cabeb</color>
+    <!-- 按钮背景色 -->
+	<color name="bg_fif_black">#26000000</color>
+    <!-- 天蓝色 -->
+    <color name="gray_line">#dcdcdc</color>
+	<color name="main_header_bg_color">#3a3a3a</color>      
+</resources>

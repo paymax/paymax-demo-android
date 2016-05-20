@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+    <include
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        layout="@layout/title" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <cn.cloudcore.iprotect.plugin.CEditText
+            android:id="@+id/et_inputOne"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_marginLeft="@dimen/dp_fifteen"
+            android:layout_marginRight="@dimen/dp_fifteen"
+            android:textColor="@color/lkl_black"
+            android:textSize="@dimen/text_dialog_title"
+            android:hint="请输入登录密码"
+            android:textColorHint="@color/main_hint_color"/>
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/main_div_color"/>
+        <cn.cloudcore.iprotect.plugin.CEditText
+            android:id="@+id/et_inputTwo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_marginLeft="@dimen/dp_fifteen"
+            android:layout_marginRight="@dimen/dp_fifteen"
+            android:textColor="@color/lkl_black"
+            android:textSize="@dimen/text_dialog_title"
+            android:hint="请输入确认登录密码"
+            android:textColorHint="@color/main_hint_color"/>
+    </LinearLayout>
+    <Button 
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_forty_four"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="@dimen/dp_fifteen"
+        android:layout_marginRight="@dimen/dp_fifteen"
+        android:background="@drawable/bg_corner_lkl_blue"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_btn_size"/>
+
+</LinearLayout>
