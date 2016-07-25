@@ -83,12 +83,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.lkl.pay.ui.activity.register.RegisterPayPwdActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.lkl.pay.ui.activity.register.RegisterPayConfirmActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.lkl.pay.ui.activity.cardPay.InputCardNoActivity"
             android:screenOrientation="portrait" />
         <activity

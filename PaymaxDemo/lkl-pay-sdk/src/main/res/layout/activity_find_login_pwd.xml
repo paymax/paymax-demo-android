@@ -86,7 +86,7 @@
        	        android:textColorHint="@color/main_hint_color"
        	        android:background="@null"
        	        android:inputType="number"
-       	        android:maxLength="4"/>
+       	        android:maxLength="6"/>
        	</RelativeLayout>
     </LinearLayout>
     

@@ -9,12 +9,24 @@
         android:id="@+id/item_left"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_forty_four" >
+        <CheckBox
+            android:id="@+id/cb_choose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_check_box"
+            android:button="@null"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal" >
+            android:layout_toLeftOf="@id/cb_choose"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true" >
 
             <TextView
                 android:id="@+id/tv_bankCardName"
@@ -24,48 +36,45 @@
                 android:textColor="@color/lkl_black"
                 android:textSize="@dimen/text_dialog_title" />
 
-            <TextView
-                android:id="@+id/tv_bankCardType"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_ten"
-                android:text=""
-                android:textColor="@color/lkl_black"
-                android:textSize="@dimen/text_dialog_title" />
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ASTERISK"
-                android:textColor="@color/lkl_black"
-                android:textSize="@dimen/text_dialog_title" />
-            
-            <TextView
-                android:id="@+id/tv_lastNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/lkl_black"
-                android:textSize="@dimen/text_dialog_title" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal" >
 
-        <CheckBox
-            android:id="@+id/cb_choose"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/bg_check_box"
-            android:clickable="false"
-            android:enabled="false"
-            android:focusable="false"
-            android:button="@null" />
+                <TextView
+                    android:id="@+id/tv_bankCardType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_ten"
+                    android:text=""
+                    android:textColor="@color/lkl_black"
+                    android:textSize="@dimen/text_dialog_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ASTERISK"
+                    android:textColor="@color/lkl_black"
+                    android:textSize="@dimen/text_dialog_title" />
+
+                <TextView
+                    android:id="@+id/tv_lastNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/lkl_black"
+                    android:textSize="@dimen/text_dialog_title" />
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/item_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_forty_four"

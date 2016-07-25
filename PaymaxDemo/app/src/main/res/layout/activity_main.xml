@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/root"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorBackgroud"
+                android:gravity="center_horizontal"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="com.swwx.paymax.demo.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Switch
+            android:id="@+id/switch_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="测试环境(关闭代表开发环境)"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutUp1"
@@ -45,7 +59,8 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
-                android:text="@string/default_amount"/>
+                android:text="@string/default_amount"
+                android:inputType="number"/>
         </LinearLayout>
 
         <View
@@ -91,7 +106,6 @@
         android:id="@+id/linearLayoutCenter1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayoutUp1"
         android:layout_marginTop="33dp"
         android:orientation="vertical">
 
@@ -234,12 +248,11 @@
         android:id="@+id/bt_ok"
         android:layout_width="350dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_style"
         android:onClick="onCharge"
         android:text="@string/bt_ok"
         android:textColor="@color/colorEditText"/>
 
 
-</RelativeLayout>
+</LinearLayout>

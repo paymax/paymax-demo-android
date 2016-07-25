@@ -2,7 +2,7 @@
 
 ### 一、下载
 
-在 http://www.paymax.cn 下载Android SDK，下载列表如下包含：
+在 <https://www.paymax.cc> 下载Android SDK，下载列表如下包含：
 
 ![下载列表](https://raw.githubusercontent.com/coderbook/MarkDownRes/master/PayRightPic/payright_sdk_android_dir.png)
 
@@ -16,7 +16,7 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/coderbook/MarkDownRes/master/PayRightPic/payright_sdk_android_files.png" width = "400" height = "400" alt="图片名称" align=center />
-<div>
+</div>
 
 
 
@@ -40,14 +40,28 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 ##### 权限声明
 
 
-    <!--微信和支付宝公共权限-->
+    <!-- 微信和支付宝公共权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--微信所需权限-->
+    
+    <!-- 微信所需权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--支付宝所需权限-->
+    
+    <!-- 支付宝所需权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    
+    <!-- 拉卡拉 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
 
 
@@ -74,7 +88,61 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>   
+        
+     <!-- 注册拉卡拉 -->
+        
+        <activity
+            android:name="com.lkl.pay.ui.activity.SDK_StartJarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent"  />
+        <activity
+            android:name="com.lkl.pay.ui.activity.SDK_LoginActivity"
+            android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.lkl.pay.ui.activity.SDK_MsgLoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lkl.pay.ui.activity.cardPay.BindCreditCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lkl.pay.ui.activity.cardPay.BindDebitCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lkl.pay.ui.activity.cardPay.HtmlProtocolActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lkl.pay.ui.activity.cardPay.InputCardNoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lkl.pay.ui.activity.cardPay.InputMessageCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lkl.pay.ui.activity.forget.FindLoginPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lkl.pay.ui.activity.forget.SetLoginPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lkl.pay.ui.activity.register.SetPayPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lkl.pay.ui.activity.payResult.SuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lkl.pay.ui.activity.payResult.FailureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.cloudcore.iprotect.plugin.CKbdActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation"
+            android:theme="@android:style/Theme.Translucent"
+            />
 
 
 
@@ -146,6 +214,16 @@ Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发�
             case Paymax.CODE_ERROR_CONNECT:
                 //支付宝网络连接错误
                 msg = "alipay network connection failed.";
+                break;
+                
+            case PaymaxSDK.CODE_ERROR_CHANNEL:
+                //渠道错误
+                msg = "channel error.";
+                break;
+
+            case PaymaxSDK.CODE_ERROR_LAK_USER_NO_NULL:
+                //拉卡拉商户用户号为空
+                msg = "lklpay user no is null.";
                 break;
 
         }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
@@ -18,9 +19,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-import com.swwx.paymax.PaymaxSDK;
 import com.swwx.paymax.PayResult;
 import com.swwx.paymax.PaymaxCallback;
+import com.swwx.paymax.PaymaxSDK;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -30,7 +31,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
-    private static final String URL = "Test url";
+    private static final String URL_TEST = "http://118.186.238.194:12317/v1/chargeOrders"; // 测试环境
+    private static final String URL_DEV = "http://118.186.238.194:8899/v1/chargeOrders"; //（开发环境）
 
     private EditText amountEditText;
 
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
     private ImageButton ibWechat;
     private ImageButton ibAlipay;
     private ImageButton ibLKL;
+
+    private Switch mSwitch;
+
     private int channel = PaymaxSDK.CHANNEL_ALIPAY;
 
     /**
@@ -67,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         ivWX.setImageResource(R.drawable.wx);
         ImageView ivAli = (ImageView) findViewById(R.id.iv_ali);
         ivAli.setImageResource(R.drawable.ali);
+        ImageView ivLkl = (ImageView) findViewById(R.id.iv_lkl);
+        ivLkl.setImageResource(R.drawable.lkl);
+
+        mSwitch = (Switch) findViewById(R.id.switch_view);
+        mSwitch.setChecked(true);
 
         // select channel button
         ibWechat = (ImageButton) findViewById(R.id.ibWechat);
@@ -74,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         ibLKL = (ImageButton) findViewById(R.id.ibLKL);
         onChannelClick(ibWechat);
 
-        useridEditText= (EditText) findViewById(R.id.edit_userid);
+        useridEditText = (EditText) findViewById(R.id.edit_userid);
         amountEditText = (EditText) findViewById(R.id.et_right);
         amountEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,15 +126,15 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
             switch (channel) {
                 case PaymaxSDK.CHANNEL_WX:
-                    new PaymentTask().execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(mSwitch.isChecked()).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid));
                     break;
 
                 case PaymaxSDK.CHANNEL_ALIPAY:
-                    new PaymentTask().execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(mSwitch.isChecked()).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid));
                     break;
 
                 case PaymaxSDK.CHANNEL_LKL:
-                    new PaymentTask().execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(mSwitch.isChecked()).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid));
                     break;
             }
 
@@ -203,6 +213,9 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
                 msg = "channel error.";
                 break;
 
+            case PaymaxSDK.CODE_ERROR_LAK_USER_NO_NULL:
+                msg = "lklpay user no is null.";
+
         }
         Snackbar.make(getWindow().getDecorView(), msg, Snackbar.LENGTH_LONG)
                 .setAction("Close", new View.OnClickListener() {
@@ -238,6 +251,12 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
     class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
 
+        private boolean isTestMode = true;
+
+        public PaymentTask(boolean isTestMode) {
+            this.isTestMode = isTestMode;
+        }
+
         @Override
         protected void onPreExecute() {
         }
@@ -251,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
             try {
 
                 // 向 PaymaxSDK Server SDK请求数据
-                data = postJson(URL, json);
+                data = postJson(isTestMode ? URL_TEST : URL_DEV, json);
                 Log.d("PaymaxSDK", "data=" + data);
             } catch (Exception e) {
                 e.printStackTrace();
