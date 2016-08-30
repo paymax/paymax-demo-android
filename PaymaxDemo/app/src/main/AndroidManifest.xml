@@ -20,10 +20,15 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <!--人脸识别-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
 
     <application
         android:name="com.swwx.paymax.demo.DemoApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/paymax"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -35,6 +40,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.swwx.paymax.demo.InputActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.swwx.facesdk.ui.FaceLivenessActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.swwx.paymax.PaymentActivity"
@@ -52,8 +65,7 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <!-- alipay sdk end -->
 
@@ -61,27 +73,22 @@
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_StartJarActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent"  />
+            android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_LoginActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_MsgLoginActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.lkl.pay.ui.activity.cardPay.BindCreditCardActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.lkl.pay.ui.activity.cardPay.BindDebitCardActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.lkl.pay.ui.activity.cardPay.HtmlProtocolActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.lkl.pay.ui.activity.cardPay.InputCardNoActivity"
             android:screenOrientation="portrait" />
@@ -107,8 +114,7 @@
             android:name="cn.cloudcore.iprotect.plugin.CKbdActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation"
-            android:theme="@android:style/Theme.Translucent"
-            />
+            android:theme="@android:style/Theme.Translucent" />
         <!-- 拉卡拉 -->
     </application>
 

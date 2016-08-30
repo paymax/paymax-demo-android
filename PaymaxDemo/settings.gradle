@@ -1,1 +1,1 @@
-include ':app', ':lkl-pay-sdk'
+include ':app'

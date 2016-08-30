@@ -11,4 +11,6 @@
     <color name="colorEditText">#FFFFFF</color>
     <color name="colorBackgroud">#F2F2F4</color>
 
+    <color name="background">#f5f5f5</color>
+    <color name="white">#FFFFFF</color>
 </resources>

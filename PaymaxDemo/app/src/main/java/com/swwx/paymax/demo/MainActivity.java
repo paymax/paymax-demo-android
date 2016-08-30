@@ -1,5 +1,6 @@
 package com.swwx.paymax.demo;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
@@ -19,9 +19,12 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.swwx.paymax.PayLog;
 import com.swwx.paymax.PayResult;
 import com.swwx.paymax.PaymaxCallback;
 import com.swwx.paymax.PaymaxSDK;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -31,12 +34,11 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
-    private static final String URL_TEST = "http://118.186.238.194:12317/v1/chargeOrders"; // 测试环境
-    private static final String URL_DEV = "http://118.186.238.194:8899/v1/chargeOrders"; //（开发环境）
-
     private EditText amountEditText;
 
+
     private EditText useridEditText;
+
 
     private String currentAmount = "";
 
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
     private ImageButton ibAlipay;
     private ImageButton ibLKL;
 
-    private Switch mSwitch;
+    protected double amount = 0.0;
+    protected String userid = "";
+
 
     private int channel = PaymaxSDK.CHANNEL_ALIPAY;
 
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
     /**
      * 微信支付渠道
      */
-    private static final String CHANNEL_LKL = "lakala_app";
+    protected static final String CHANNEL_LKL = "lakala_app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         ImageView ivLkl = (ImageView) findViewById(R.id.iv_lkl);
         ivLkl.setImageResource(R.drawable.lkl);
 
-        mSwitch = (Switch) findViewById(R.id.switch_view);
-        mSwitch.setChecked(true);
 
         // select channel button
         ibWechat = (ImageButton) findViewById(R.id.ibWechat);
@@ -119,23 +121,24 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
     public void onCharge(View view) {
         String amountText = amountEditText.getText().toString();
-        String userid = useridEditText.getText().toString();
+        userid = useridEditText.getText().toString();
         if (checkInputValid(amountText)) {
-            double amount = parseInputTxt(amountText);
+            amount = parseInputTxt(amountText);
             amount /= 100;
 
             switch (channel) {
                 case PaymaxSDK.CHANNEL_WX:
-                    new PaymentTask(mSwitch.isChecked()).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid));
                     break;
 
                 case PaymaxSDK.CHANNEL_ALIPAY:
-                    new PaymentTask(mSwitch.isChecked()).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid));
                     break;
 
-                case PaymaxSDK.CHANNEL_LKL:
-                    new PaymentTask(mSwitch.isChecked()).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid));
-                    break;
+                case PaymaxSDK.CHANNEL_LKL: {
+                    new FaceTask().execute(new FaceRequest("123", "123", userid));
+                }
+                break;
             }
 
         }
@@ -215,9 +218,10 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
             case PaymaxSDK.CODE_ERROR_LAK_USER_NO_NULL:
                 msg = "lklpay user no is null.";
+                break;
 
         }
-        Snackbar.make(getWindow().getDecorView(), msg, Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_LONG)
                 .setAction("Close", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -236,25 +240,10 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         return Double.valueOf(new BigDecimal(cleanString).toString());
     }
 
-    private String postJson(String url, String json) throws IOException {
-        MediaType type = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(type, json);
-        Request request = new Request.Builder().url(url).post(body).build();
-        OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(5, TimeUnit.SECONDS);
-        client.setReadTimeout(5, TimeUnit.SECONDS);
-        Response response = client.newCall(request).execute();
-        Log.d("PaymaxSDK", "response code = " + response.code());
-        return response.code() == 200 ? response.body().string() : null;
+    class FaceTask extends AsyncTask<FaceRequest, Void, String> {
 
-    }
 
-    class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
-
-        private boolean isTestMode = true;
-
-        public PaymentTask(boolean isTestMode) {
-            this.isTestMode = isTestMode;
+        public FaceTask() {
         }
 
         @Override
@@ -262,67 +251,92 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         }
 
         @Override
-        protected String doInBackground(PaymentRequest... pr) {
-            PaymentRequest paymentRequest = pr[0];
+        protected String doInBackground(FaceRequest... pr) {
+            FaceRequest faceRequest = pr[0];
             String data = null;
-            String json = new Gson().toJson(paymentRequest);
-            Log.d("PaymaxSDK", "json=" + json);
+            String json = new Gson().toJson(faceRequest);
+            Log.d("FaceRecoSDK", "json=" + json);
             try {
 
                 // 向 PaymaxSDK Server SDK请求数据
-                data = postJson(isTestMode ? URL_TEST : URL_DEV, json);
-                Log.d("PaymaxSDK", "data=" + data);
+                // 开发环境：http://172.30.21.20:8888/mock_merchant_server/v1/face/auth/{uId}/dev
+                // 测试环境：http://172.30.21.22:8888/mock_merchant_server/v1/face/auth/{uId}/test
+                // 测试环境(域名): http://test.paymax.cc/mock_merchant_server/v1/face/auth/%s/test
+                // https://www.paymax.cc/mock_merchant_server/v1/face/auth/{uId}/product
+                String url = String.format("https://www.paymax.cc/mock_merchant_server/v1/face/auth/%s/product", pr[0].uId);
+                data = postJson(url, json);
+                Log.d("FaceRecoSDK", "data=" + data);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return data;
         }
 
-        /**
-         * 获得服务端的charge，调用 sdk。
-         */
+
         @Override
         protected void onPostExecute(String data) {
             if (null == data || data.length() == 0) {
-                Snackbar.make(getWindow().getDecorView(), "no data", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(android.R.id.content), "no face data", Snackbar.LENGTH_LONG)
                         .setAction("Close", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                             }
                         }).show();
-                return;
+            } else if (getRtn(data)) {
+                new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid));
+            } else {
+                Intent intent = new Intent(MainActivity.this, InputActivity.class);
+                intent.putExtra("amount", amount);
+                intent.putExtra("userid", userid);
+                startActivity(intent);
             }
-
-//            String test = "{\"amount\":0.01,\"app\":\"app_49b0f1dd741646d2b277524de2785836\",\"body\":\"测试商品Body\",\"channel\":\"lkl_app\",\"credential\":{\"lkl_app\":{\"orderInfo\":\"_input_charset=\\\"utf-8\\\"&notify_url=\\\"http://118.186.238.194:12306/lkl_app\\\"&out_trade_no=\\\"ch_37a542d2a9062650fda9dfe2\\\"&partner=\\\"2088221494146238\\\"&payment_type=\\\"1\\\"&seller_id=\\\"471332824@qq.com\\\"&service=\\\"mobile.securitypay.pay\\\"&subject=\\\"测试商品007\\\"&total_fee=\\\"0.01\\\"&sign=\\\"FkedgBzbbPG4PVJiG3UiSyzNCxAsV8Fzwud358jsvsgxgtcBHVhKGl9OQa0gQkA2wxOa9uwYHJMhyVc4At%2F1EpScOven85Qxdi2yaUWH%2FzXbLYvnOEDZDQKO8zBxPb1n2puc6MToa12MBSTS1cFinwOibycN9xUk2JzhVF7aCQs%3D\\\"&sign_type=\\\"RSA\\\"\"}},\"currency\":\"cny\",\"description\":\"\",\"id\":\"ch_37a542d2a9062650fda9dfe2\",\"liveMode\":false,\"refunded\":false,\"refunds\":[],\"status\":\"PROCESSING\",\"subject\":\"测试商品007\"}";
-
-            PaymaxSDK.pay(MainActivity.this, data, MainActivity.this);
         }
     }
 
-    class PaymentRequest {
-        String channel;
-        double totalPrice;
-        String title;
-        String body;
-        User extra;
+    class FaceRequest {
+        String key;//商户key
+        String merchantNo;//商户号
+        String uId;//商户用户id， 在商户系统能唯一标示某个用户商户用户名
 
-        public PaymentRequest(String channel, double totalPrice, String title, String body, String userid) {
-            this.channel = channel;
-            this.totalPrice = totalPrice;
-            this.title = title;
-            this.body = body;
-
-            extra = new User(userid);
+        public FaceRequest(String key, String merchantNo, String uId) {
+            this.key = key;
+            this.merchantNo = merchantNo;
+            this.uId = uId;
         }
     }
 
-    class User {
-        String user_id;
 
-        public User(String userid) {
-            this.user_id = userid;
+    /**
+     * 获得返回结果码,来判断此用户是否通过人脸识别
+     *
+     * @param data
+     * @return
+     */
+    private boolean getRtn(String data) {
+        boolean flag = false;
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            flag = jsonObject.optBoolean("authValid");
+        } catch (Exception e) {
+            PayLog.e(e);
         }
+        return flag;
     }
+
+
+    private String postJson(String url, String json) throws IOException {
+        MediaType type = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(type, json);
+        Request request = new Request.Builder().url(url).get().build();
+        OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(5, TimeUnit.SECONDS);
+        client.setReadTimeout(5, TimeUnit.SECONDS);
+        Response response = client.newCall(request).execute();
+        Log.d("PaymaxSDK", "response code = " + response.code());
+        return response.body().string();
+
+    }
+
 }
 
 

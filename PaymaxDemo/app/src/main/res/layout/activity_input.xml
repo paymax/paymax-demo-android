@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <View
+        android:id="@+id/panel1"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="@+id/cl_main"
+        app:layout_constraintRight_toRightOf="@+id/cl_main"
+        app:layout_constraintTop_toTopOf="@+id/cl_main"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="100dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/text_name"
+        android:textSize="14sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintLeft_toLeftOf="@+id/cl_main"
+        app:layout_constraintTop_toTopOf="@+id/panel1"/>
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:maxLines="1"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_name"
+        app:layout_constraintRight_toRightOf="@+id/cl_main"
+        app:layout_constraintTop_toTopOf="@+id/tv_name"/>
+
+
+
+    <View
+        android:id="@+id/panel2"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="@+id/cl_main"
+        app:layout_constraintRight_toRightOf="@+id/cl_main"
+        app:layout_constraintTop_toBottomOf="@+id/panel1"/>
+
+    <TextView
+        android:id="@+id/tv_idcard"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:gravity="center_vertical|start"
+        android:text="@string/text_idcard"
+        android:textSize="14sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintLeft_toLeftOf="@id/tv_name"
+        app:layout_constraintRight_toRightOf="@+id/tv_name"
+        app:layout_constraintTop_toTopOf="@id/panel2"/>
+
+    <EditText
+        android:id="@+id/et_idcard"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:maxLines="1"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_idcard"
+        app:layout_constraintRight_toRightOf="@+id/cl_main"
+        app:layout_constraintTop_toTopOf="@+id/tv_idcard"/>
+
+
+    <Button
+        android:id="@+id/bt_start"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_style"
+        android:text="@string/btn_start_liveness"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/cl_main"
+        app:layout_constraintRight_toRightOf="@id/cl_main"
+        app:layout_constraintTop_toBottomOf="@id/panel2"/>
+
+</android.support.constraint.ConstraintLayout>
+

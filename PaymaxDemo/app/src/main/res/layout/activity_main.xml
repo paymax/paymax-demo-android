@@ -1,248 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/root"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorBackgroud"
-                android:gravity="center_horizontal"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="com.swwx.paymax.demo.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroud"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.swwx.paymax.demo.MainActivity">
 
-    <LinearLayout
+
+    <!--<Switch-->
+    <!--android:id="@+id/switch_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="16dp"-->
+    <!--android:text="测试环境(关闭代表开发环境)"/>-->
+
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Switch
-            android:id="@+id/switch_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="测试环境(关闭代表开发环境)"/>
-    </LinearLayout>
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutUp1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLine"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutUp2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/et_left"
-                android:layout_width="90dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/payment_txt"/>
-
-            <EditText
-                android:id="@+id/et_right"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/default_amount"
-                android:inputType="number"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLine"/>
-
-        <LinearLayout
-            android:id="@+id/layout_userid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_userid"
-                android:layout_width="90dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/userid_txt"/>
-
-            <EditText
-                android:id="@+id/edit_userid"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/default_userid"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLine"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutCenter1"
+        android:id="@+id/linearLayoutUp2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLine"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCenter2"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
+        <TextView
+            android:id="@+id/et_left"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:background="@color/colorEditText"
-            android:orientation="horizontal">
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/payment_txt" />
 
-            <ImageView
-                android:id="@+id/iv_wx"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/whchat_txt"/>
-
-            <ImageButton
-                android:id="@+id/ibWechat"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:onClick="onChannelClick"
-                />
-        </LinearLayout>
-
-        <View
+        <EditText
+            android:id="@+id/et_right"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/colorLine"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCenter3"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="match_parent"
             android:background="@color/colorEditText"
-            android:orientation="horizontal"
-            >
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/default_amount"
+            android:focusable="false"
+            android:inputType="number" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_ali"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/alipay_txt"/>
+    <LinearLayout
+        android:id="@+id/layout_userid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/ibAlipay"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:onClick="onChannelClick"
-                />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/colorLine"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCenter4"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
+        <TextView
+            android:id="@+id/text_userid"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:background="@color/colorEditText"
-            android:orientation="horizontal"
-            >
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/userid_txt" />
 
-            <ImageView
-                android:id="@+id/iv_lkl"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/colorEditText"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/lkl_txt"/>
-
-            <ImageButton
-                android:id="@+id/ibLKL"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:onClick="onChannelClick"
-                />
-
-        </LinearLayout>
-
-        <View
+        <EditText
+            android:id="@+id/edit_userid"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLine"/>
+            android:layout_height="match_parent"
+            android:background="@color/colorEditText"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/default_userid" />
+    </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine"
+        android:layout_marginTop="33dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCenter2"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorEditText"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_wx"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@color/colorEditText"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/whchat_txt" />
+
+        <ImageButton
+            android:id="@+id/ibWechat"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:onClick="onChannelClick" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/colorLine" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCenter3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorEditText"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_ali"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@color/colorEditText"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/alipay_txt" />
+
+        <ImageButton
+            android:id="@+id/ibAlipay"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:onClick="onChannelClick" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/colorLine" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCenter4"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorEditText"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_lkl"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@color/colorEditText"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/lkl_txt" />
+
+        <ImageButton
+            android:id="@+id/ibLKL"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:onClick="onChannelClick" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
+
 
     <Button
         android:id="@+id/bt_ok"
@@ -252,7 +230,7 @@
         android:background="@drawable/button_style"
         android:onClick="onCharge"
         android:text="@string/bt_ok"
-        android:textColor="@color/colorEditText"/>
+        android:textColor="@color/colorEditText" />
 
 
 </LinearLayout>
