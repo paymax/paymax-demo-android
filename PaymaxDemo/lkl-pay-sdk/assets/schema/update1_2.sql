@@ -1,2 +1,0 @@
-ALTER TABLE user add COLUMN sex INTEGER;
-ALTER TABLE user add COLUMN age INTEGER;

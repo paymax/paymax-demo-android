@@ -11,6 +11,23 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
+
+    signingConfigs {
+        release {
+            storeFile file(rootProject.ext.storeFile)
+            storePassword rootProject.ext.storePassword
+            keyAlias rootProject.ext.keyAlias
+            keyPassword rootProject.ext.keyPassword
+        }
+        debug {
+            storeFile file(rootProject.ext.storeFile)
+            storePassword rootProject.ext.storePassword
+            keyAlias rootProject.ext.keyAlias
+            keyPassword rootProject.ext.keyPassword
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
