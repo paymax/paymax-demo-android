@@ -352,10 +352,5 @@ Android 不允许在 UI 线程中进行网络请求，所以请求 charge 对象
     -keep class com.lkl.** {*;}
 
 
-### 日志开关
 
-SDK 提供了日志功能，默认日志为关闭状态。
-开发者可以通过下面设置打开日志开关。通过 `PaymaxSDK` 来对日志进行筛选。
-
-    PayLog.DEBUG = true;
 

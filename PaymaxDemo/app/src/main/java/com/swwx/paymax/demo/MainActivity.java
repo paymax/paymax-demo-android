@@ -35,10 +35,8 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
     private EditText amountEditText;
-
-
     private EditText useridEditText;
-
+    private EditText time_expireEditText;
 
     private String currentAmount = "";
 
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
     protected double amount = 0.0;
     protected String userid = "";
-
+    protected long time_expire ;
 
     private int channel = PaymaxSDK.CHANNEL_ALIPAY;
 
@@ -88,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
         useridEditText = (EditText) findViewById(R.id.edit_userid);
         amountEditText = (EditText) findViewById(R.id.et_right);
+        time_expireEditText = (EditText) findViewById(R.id.edit_time_expire);
+
         amountEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -122,17 +122,20 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
     public void onCharge(View view) {
         String amountText = amountEditText.getText().toString();
         userid = useridEditText.getText().toString();
+        time_expire=Long.parseLong(time_expireEditText.getText().toString())* 1000+System.currentTimeMillis();
+        Log.d("FaceRecoSDK", "time_expire=" + time_expire);
+
         if (checkInputValid(amountText)) {
             amount = parseInputTxt(amountText);
             amount /= 100;
 
             switch (channel) {
                 case PaymaxSDK.CHANNEL_WX:
-                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid,time_expire));
                     break;
 
                 case PaymaxSDK.CHANNEL_ALIPAY:
-                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid));
+                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid,time_expire));
                     break;
 
                 case PaymaxSDK.CHANNEL_LKL: {
@@ -259,10 +262,6 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
             try {
 
                 // 向 PaymaxSDK Server SDK请求数据
-                // 开发环境：http://172.30.21.20:8888/mock_merchant_server/v1/face/auth/{uId}/dev
-                // 测试环境：http://172.30.21.22:8888/mock_merchant_server/v1/face/auth/{uId}/test
-                // 测试环境(域名): http://test.paymax.cc/mock_merchant_server/v1/face/auth/%s/test
-                // https://www.paymax.cc/mock_merchant_server/v1/face/auth/{uId}/product
                 String url = String.format("https://www.paymax.cc/mock_merchant_server/v1/face/auth/%s/product", pr[0].uId);
                 data = postJson(url, json);
                 Log.d("FaceRecoSDK", "data=" + data);
@@ -283,11 +282,13 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
                             }
                         }).show();
             } else if (getRtn(data)) {
-                new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid));
+                new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid,time_expire));
             } else {
                 Intent intent = new Intent(MainActivity.this, InputActivity.class);
                 intent.putExtra("amount", amount);
                 intent.putExtra("userid", userid);
+                intent.putExtra("time_expire", time_expire);
+
                 startActivity(intent);
             }
         }

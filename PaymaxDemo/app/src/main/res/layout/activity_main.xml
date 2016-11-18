@@ -85,7 +85,42 @@
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:text="@string/default_userid" />
+            android:text="@string/default_userid"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
+
+    <LinearLayout
+        android:id="@+id/layout_time_expire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_time_expire"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorEditText"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/time_expire_txt" />
+
+        <EditText
+            android:id="@+id/edit_time_expire"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorEditText"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/default_time_expire"
+            />
     </LinearLayout>
 
     <View

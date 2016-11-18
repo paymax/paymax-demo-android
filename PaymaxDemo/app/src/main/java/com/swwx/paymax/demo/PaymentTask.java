@@ -20,10 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
 
-    // http://172.30.21.22:8899/v1/chargeOrders/test 测试环境
-    // http://118.186.238.194:12317/v1/chargeOrders/test 外网
-    // https://www.paymax.cc/mock_merchant_server/v1/chargeOrders/product  给开发者用的demo
-    private static final String URL_CHAGE_URL = "https://www.paymax.cc/mock_merchant_server/v1/chargeOrders/product"; // 测试环境
+    private static final String URL_CHAGE_URL = "https://www.paymax.cc/mock_merchant_server/v1/chargeOrders/product";
 
     Activity mActivity;
 

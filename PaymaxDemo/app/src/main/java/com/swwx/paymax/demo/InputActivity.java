@@ -21,6 +21,8 @@ public class InputActivity extends AppCompatActivity implements PaymaxCallback {
 
     String realName = "";
     String idCardNo = "";
+    long timeExpire;
+
 
     double amount;
     String userid;
@@ -35,6 +37,7 @@ public class InputActivity extends AppCompatActivity implements PaymaxCallback {
 
         amount = getIntent().getDoubleExtra("amount", 0.0);
         userid = getIntent().getStringExtra("userid");
+        timeExpire = getIntent().getLongExtra("time_expire", 3600);
 
         etName = (EditText) findViewById(R.id.et_name);
         etIdCardNo = (EditText) findViewById(R.id.et_idcard);
@@ -58,8 +61,6 @@ public class InputActivity extends AppCompatActivity implements PaymaxCallback {
                 realName = etName.getText().toString();
                 idCardNo = etIdCardNo.getText().toString();
 
-                // 5b97b3138041437587646b37f52dc7f7 开发
-                // 27ab6b803cae4e69959543aacf0836d6 测试
                 FaceRecoSDK.startReco(userid, "55970fdbbf10459f966a8e276afa86fa", realName, idCardNo, InputActivity.this);
             }
         });
@@ -70,7 +71,7 @@ public class InputActivity extends AppCompatActivity implements PaymaxCallback {
         switch (resultCode) {
 
             case Activity.RESULT_OK:
-                new PaymentTask(this, this).execute(new PaymentRequest(MainActivity.CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid));
+                new PaymentTask(this, this).execute(new PaymentRequest(MainActivity.CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid,timeExpire));
                 break;
 
             case Activity.RESULT_CANCELED: {

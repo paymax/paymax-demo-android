@@ -8,6 +8,9 @@
     <string name="default_amount">￥ 0.01</string>
     <string name="default_userid">100</string>
     <string name="bt_ok">确认支付</string>
+    <string name="time_expire_txt">过期时间</string>
+    <string name="default_time_expire">3600</string>
+
 
     <string name="text_name">姓名</string>
     <string name="text_idcard">身份证号码</string>
