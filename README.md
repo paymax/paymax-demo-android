@@ -12,7 +12,7 @@
 
 ### 二、快速体验
 
-Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入流程。下载 Paymax SDK 之后将整个目录导入到您的 <font color=red>`Android Studio` </font>中。
+Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入流程。下载 Paymax SDK 之后将整个目录导入到您的 Android Studio 中。
 
 使用 Android Studio 时，请选择 `File` → `Open...`→ `PaymaxDemo` 
 
@@ -30,7 +30,7 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 
 1. 在你的项目里创建 `libs` 目录:将项目切换到project模式，定位到你的module，右击 `New` → `Directory`→ 输入 `libs`→ `OK` 
 2. 将下载的  `paymax.jar` 复制、粘贴到 `libs` 目录
-3. 同时将下载的微信 `libammsdk.jar` 、支付宝 `alipaySdk-20160516` 官方jar文件复制、粘贴到 `libs` 目录
+3. 同时将下载的微信 `libammsdk.jar` 、支付宝 `alipaySdk-20161222.jar` 官方jar文件复制、粘贴到 `libs` 目录
 4. 找到module的 `build.gradle` → `dependencies` 填写
   
    
@@ -178,16 +178,17 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
             />
 
 ### 四、人脸识别
-#####说明：为了保证用户资金安全，使用`拉卡拉支付`必须支持人脸识别
 
-发起支付前，请先通过后台接口判断是否需要调起人脸识别。商户后台通过调用`Paymax Server SDK` 向paymax服务器发起请求，获得结果码的方式进行判断（已经识别过的用户可不用再次识别验证），详细步骤请参考Demo
+发起支付前，最好先通过后台接口判断是否需要调起人脸识别。商户后台通过调用`Paymax Server SDK` 向paymax服务器发起请求，获得结果码的方式进行判断（已经识别过的用户可不用再次识别验证），详细步骤请参考Demo
+
+
 
 如果需要调用，请参考如下内容：
 
     /**
      * 调用人脸识别接口
      *  uId             商户用户号
-     *  authorization   商户号
+     *  authorization   商户号(用户信息->开发信息->Live Secret Key)
      *  realName        姓名
      *  idCardNo        身份证
      *  act             上下文
@@ -195,72 +196,78 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
      */
      FaceRecoSDK.startReco(String uId, String authorization, String realName, String idCardNo, Activity act);
      
-根据人脸识别结果进行相应处理，如下为理情况，仅供参考：
+根据人脸识别结果进行相应处理，如下为处理情况，仅供参考：
 
     
         /**
          * 人脸识别结果处理
          * @param msg
          */
-        public void handleMessage(Message msg) {
-           
-            if (response != null) {
-                message = response.message;
-                switch (response.code) {
-                
-                    //人脸识别一致
-                    case "ACCORDANCE":
-                        ok = true;
-                        code = CODE_VERIFY_SUCCESS;
-                        break;
+         
+         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
 
-                    //人脸识别不一致
-                    case "INCONFORMITY":
-                        code = CODE_INCONFORMITY;
-                        break;
-                 
-                    //签名验证失败
-                    case "VERIFY_FAILED":
-                        code = CODE_VERIFY_FAILED;
-                        break;
+            case Activity.RESULT_OK:
+                //活体检测成功
+                break;
 
-                    //时间戳过期或者提前
-                    case "REQUEST_TIMESTAMP_EXPIRE":
-                        code = REQUEST_TIMESTAMP_EXPIRE;
-                        break;
+            case Activity.RESULT_CANCELED: {
+                if (data != null) {
+                    int code = data.getIntExtra(FaceLivenessActivity.RESULT_VERIFY_CODE, ResponseHelper.UNKONW_ERROR);
+                    String msg = data.getStringExtra(FaceLivenessActivity.RESULT_VERIFY_MESSAGE);
+                    switch (code) {
+                        case ResponseHelper.CODE_LIVENESS_INITIALIZE_FAIL:
+                            msg = "活体检测初始化失败";
+                            break;
 
-                    //请求参数不合法
-                    case "ILLEGAL_REQUEST_BODY":
-                        code = ILLEGAL_REQUEST_BODY;
-                        break;
+                        case ResponseHelper.CODE_LIVENESS_FAIL:
+                            msg = "活体检测取样失败";
+                            break;
+                    }
 
-                    //非法参数
-                    case "ILLEGAL_ARGUMENT":
-                        code = ILLEGAL_ARGUMENT;
-                        break;
-  
-                    //请求数据非法
-                    case "ILLEGAL_DATA":
-                        code = ILLEGAL_DATA;
-                        break;
-
-                    //身份证号码不一致
-                    case "IDCARDNO_ERROR":
-                        code = IDCARDNO_ERROR;
-                        break;
-
-                    //姓名与身份证号不一致
-                    case "REALNME_IDCARD_NOT_SAME":
-                        code = REALNME_IDCARD_NOT_SAME;
-                        break;
-
-                    //服务器内部异常
-                    case "SERVER_ERROR":
-                        code = SERVER_ERROR;
-                        break;
-                }
-
+                 }
             }
+            break;
+        }
+         
+          
+ 
+ 详细处理结果展示如下：
+ 
+| Code                     |                   | 
+| -------------------------|:-----------------:| 
+| CODE_VERIFY_SUCCESS      | 人脸识别一致        |  
+| CODE_INCONFORMITY        | 人脸识别不一致      | 
+| CODE_VERIFY_FAILED       | 签名验证失败        |   
+| REQUEST_TIMESTAMP_EXPIRE | 时间戳过期或者提前   |   
+| ILLEGAL_ARGUMENT         | 非法参数           |    
+| ILLEGAL_DATA             | 请求数据非法        |    
+| IDCARDNO_ERROR           | 身份证号码不一致     |   
+| REALNME_IDCARD_NOT_SAME  | 姓名与身份证号不一致  |    
+| SERVER_ERROR             | 服务器内部异常       |     
+
+***
+#### <font color=red>不使用人脸识别步骤：</font>
+
+1. 去掉如下文件：<br/>`facesdk-release.aar`<br/>
+`camera-release.aar`<br/>
+`idcardcaptorsdk-release.aar`<br/>
+`livenessdetectorsdk-release.aar`<br/>
+`livenessdetectionviewsdk-release.aar`<br/>
+
+2. 修改项目的`gradle`文件进行如下配置
+  
+        repositories {
+            flatDir {
+                dirs '../../libs'
+            }
+        }
+
+        dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile(name: 'lkl-pay-sdk-release', ext: 'aar')
+        compile files('../../libs/paymax.jar')
+        }
 
 ### 五、获得 Charge
 Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发起支付的必要参数。该参数需要请求用户服务器获得，服务端生成 charge 的方式参考 [Paymax 官方文档]。SDK 中的 demo 里面提供了如何获取 charge 的实例方法，供用户参考。
@@ -274,6 +281,8 @@ Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发�
      */
 
     PaymaxSDK.pay(Activity activity, String charge, PaymaxCallback callback);
+####<font color=red>注：当前环境为真实支付环境</font>
+
 
     
 #### 七、获取支付状态
@@ -285,47 +294,47 @@ Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发�
      public void onPayFinished(PayResult result) {
         String msg = "Unknow";
         switch (result.getCode()) {
-            case Paymax.CODE_SUCCESS:
+            case PaymaxSDK.CODE_SUCCESS:
                 //支付成功
                 msg = "Complete, Success!";
                 break;
 
-            case Paymax.CODE_ERROR_CHARGE_JSON:
+            case PaymaxSDK.CODE_ERROR_CHARGE_JSON:
                 //非空格式
                 msg = "charge string isn't a json string error.";
                 break;
 
-            case Paymax.CODE_FAIL_CANCEL:
+            case PaymaxSDK.CODE_FAIL_CANCEL:
                 //用户取消
                 msg = "cancel pay.";
                 break;
 
-            case Paymax.CODE_ERROR_CHARGE_PARAMETER:
+            case PaymaxSDK.CODE_ERROR_CHARGE_PARAMETER:
                 //字段不全
                 msg = "some charge paramters error.";
                 break;
 
-            case Paymax.CODE_ERROR_WX_NOT_INSTALL:
+            case PaymaxSDK.CODE_ERROR_WX_NOT_INSTALL:
                 //微信未安装
                 msg = "wx not install.";
                 break;
 
-            case Paymax.CODE_ERROR_WX_NOT_SUPPORT_PAY:
+            case PaymaxSDK.CODE_ERROR_WX_NOT_SUPPORT_PAY:
                 //微信版本不支持
                 msg = "ex not support pay.";
                 break;
 
-            case Paymax.CODE_ERROR_WX_UNKNOW:
+            case PaymaxSDK.CODE_ERROR_WX_UNKNOW:
                 //微信未知错误
                 msg = "wechat failed.";
                 break;
 
-            case Paymax.CODE_ERROR_ALI_DEAL:
+            case PaymaxSDK.CODE_ERROR_ALI_DEAL:
                 //支付宝正在处理中
                 msg = "alipay dealing.";
                 break;
 
-            case Paymax.CODE_ERROR_CONNECT:
+            case PaymaxSDK.CODE_ERROR_CONNECT:
                 //支付宝网络连接错误
                 msg = "alipay network connection failed.";
                 break;
@@ -366,10 +375,5 @@ Android 不允许在 UI 线程中进行网络请求，所以请求 charge 对象
     -keep class com.lkl.** {*;}
 
 
-### 日志开关
 
-SDK 提供了日志功能，默认日志为关闭状态。
-开发者可以通过下面设置打开日志开关。通过 `PaymaxSDK` 来对日志进行筛选。
-
-    PayLog.DEBUG = true;
 
