@@ -30,7 +30,7 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 
 1. 在你的项目里创建 `libs` 目录:将项目切换到project模式，定位到你的module，右击 `New` → `Directory`→ 输入 `libs`→ `OK` 
 2. 将下载的  `paymax.jar` 复制、粘贴到 `libs` 目录
-3. 同时将下载的微信 `libammsdk.jar` 、支付宝 `alipaySdk-20160825` 官方jar文件复制、粘贴到 `libs` 目录
+3. 同时将下载的微信 `libammsdk.jar` 、支付宝 `alipaySdk-20161222.jar` 官方jar文件复制、粘贴到 `libs` 目录
 4. 找到module的 `build.gradle` → `dependencies` 填写
   
    
@@ -246,6 +246,29 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 | REALNME_IDCARD_NOT_SAME  | 姓名与身份证号不一致  |    
 | SERVER_ERROR             | 服务器内部异常       |     
 
+***
+#### <font color=red>不使用人脸识别步骤：</font>
+
+1. 去掉如下文件：<br/>`facesdk-release.aar`<br/>
+`camera-release.aar`<br/>
+`idcardcaptorsdk-release.aar`<br/>
+`livenessdetectorsdk-release.aar`<br/>
+`livenessdetectionviewsdk-release.aar`<br/>
+
+2. 修改项目的`gradle`文件进行如下配置
+  
+        repositories {
+            flatDir {
+                dirs '../../libs'
+            }
+        }
+
+        dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile(name: 'lkl-pay-sdk-release', ext: 'aar')
+        compile files('../../libs/paymax.jar')
+        }
+
 ### 五、获得 Charge
 Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发起支付的必要参数。该参数需要请求用户服务器获得，服务端生成 charge 的方式参考 [Paymax 官方文档]。SDK 中的 demo 里面提供了如何获取 charge 的实例方法，供用户参考。
 
@@ -271,47 +294,47 @@ Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发�
      public void onPayFinished(PayResult result) {
         String msg = "Unknow";
         switch (result.getCode()) {
-            case Paymax.CODE_SUCCESS:
+            case PaymaxSDK.CODE_SUCCESS:
                 //支付成功
                 msg = "Complete, Success!";
                 break;
 
-            case Paymax.CODE_ERROR_CHARGE_JSON:
+            case PaymaxSDK.CODE_ERROR_CHARGE_JSON:
                 //非空格式
                 msg = "charge string isn't a json string error.";
                 break;
 
-            case Paymax.CODE_FAIL_CANCEL:
+            case PaymaxSDK.CODE_FAIL_CANCEL:
                 //用户取消
                 msg = "cancel pay.";
                 break;
 
-            case Paymax.CODE_ERROR_CHARGE_PARAMETER:
+            case PaymaxSDK.CODE_ERROR_CHARGE_PARAMETER:
                 //字段不全
                 msg = "some charge paramters error.";
                 break;
 
-            case Paymax.CODE_ERROR_WX_NOT_INSTALL:
+            case PaymaxSDK.CODE_ERROR_WX_NOT_INSTALL:
                 //微信未安装
                 msg = "wx not install.";
                 break;
 
-            case Paymax.CODE_ERROR_WX_NOT_SUPPORT_PAY:
+            case PaymaxSDK.CODE_ERROR_WX_NOT_SUPPORT_PAY:
                 //微信版本不支持
                 msg = "ex not support pay.";
                 break;
 
-            case Paymax.CODE_ERROR_WX_UNKNOW:
+            case PaymaxSDK.CODE_ERROR_WX_UNKNOW:
                 //微信未知错误
                 msg = "wechat failed.";
                 break;
 
-            case Paymax.CODE_ERROR_ALI_DEAL:
+            case PaymaxSDK.CODE_ERROR_ALI_DEAL:
                 //支付宝正在处理中
                 msg = "alipay dealing.";
                 break;
 
-            case Paymax.CODE_ERROR_CONNECT:
+            case PaymaxSDK.CODE_ERROR_CONNECT:
                 //支付宝网络连接错误
                 msg = "alipay network connection failed.";
                 break;
