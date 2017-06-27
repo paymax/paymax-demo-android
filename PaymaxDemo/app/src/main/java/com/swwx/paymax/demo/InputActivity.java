@@ -13,6 +13,9 @@ import android.widget.EditText;
 //import com.swwx.facesdk.FaceRecoSDK;
 //import com.swwx.facesdk.ResponseHelper;
 //import com.swwx.facesdk.ui.FaceLivenessActivity;
+import com.swwx.facesdk.FaceRecoSDK;
+import com.swwx.facesdk.ResponseHelper;
+import com.swwx.facesdk.ui.FaceLivenessActivity;
 import com.swwx.paymax.PayResult;
 import com.swwx.paymax.PaymaxCallback;
 import com.swwx.paymax.PaymaxSDK;
@@ -61,13 +64,14 @@ public class InputActivity extends AppCompatActivity implements PaymaxCallback {
                 realName = etName.getText().toString();
                 idCardNo = etIdCardNo.getText().toString();
 
-//                FaceRecoSDK.startReco(userid, "55970fdbbf10459f966a8e276afa86fa", realName, idCardNo, InputActivity.this);
+                FaceRecoSDK.startReco(userid, "55970fdbbf10459f966a8e276afa86fa", realName, idCardNo, InputActivity.this);
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode!=FaceRecoSDK.REQUEST_CODE)return;
         switch (resultCode) {
 
             case Activity.RESULT_OK:
@@ -76,25 +80,25 @@ public class InputActivity extends AppCompatActivity implements PaymaxCallback {
 
             case Activity.RESULT_CANCELED: {
                 if (data != null) {
-//                    int code = data.getIntExtra(FaceLivenessActivity.RESULT_VERIFY_CODE, ResponseHelper.UNKONW_ERROR);
-//                    String msg = data.getStringExtra(FaceLivenessActivity.RESULT_VERIFY_MESSAGE);
-//                    switch (code) {
-//                        case ResponseHelper.CODE_LIVENESS_INITIALIZE_FAIL:
-//                            msg = "活体检测初始化失败";
-//                            break;
-//
-//                        case ResponseHelper.CODE_LIVENESS_FAIL:
-//                            msg = "活体检测取样失败";
-//                            break;
-//                    }
+                    int code = data.getIntExtra(FaceLivenessActivity.RESULT_VERIFY_CODE, ResponseHelper.UNKONW_ERROR);
+                    String msg = data.getStringExtra(FaceLivenessActivity.RESULT_VERIFY_MESSAGE);
+                    switch (code) {
+                        case ResponseHelper.CODE_LIVENESS_INITIALIZE_FAIL:
+                            msg = "活体检测初始化失败";
+                            break;
 
-//                    Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG)
-//                            .setAction(msg == null ? "未知错误" : msg, new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//
-//                                }
-//                            }).show();
+                        case ResponseHelper.CODE_LIVENESS_FAIL:
+                            msg = "活体检测取样失败";
+                            break;
+                    }
+
+                    Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_LONG)
+                            .setAction(msg == null ? "未知错误" : msg, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            }).show();
                 }
             }
 

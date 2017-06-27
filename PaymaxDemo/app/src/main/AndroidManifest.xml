@@ -48,10 +48,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.swwx.facesdk.ui.FaceLivenessActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.swwx.paymax.PaymentActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

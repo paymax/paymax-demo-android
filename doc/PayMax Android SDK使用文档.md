@@ -46,13 +46,20 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 
         dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
+        
+        //使用人脸识别需要添加
         compile(name: 'facesdk-release', ext: 'aar')
-        compile(name: 'lkl-pay-sdk-release', ext: 'aar')
-        compile(name: 'camera-release', ext: 'aar')
-        compile(name: 'idcardcaptorsdk-release', ext: 'aar')
-        compile(name: 'livenessdetectorsdk-release', ext: 'aar')
-        compile(name: 'livenessdetectionviewsdk-release', ext: 'aar')
-        compile files('../../libs/paymax.jar')
+        
+    	 compile(name: 'libimagecapture-release', ext: 'aar')
+    	 compile(name: 'libcamera-release', ext: 'aar')
+	     compile(name: 'libidcardcaptor-release', ext: 'aar')
+	     compile(name: 'liblivenessdetector2-release', ext: 'aar')
+	     compile(name: 'liblivenessdetectionview2-release', ext: 'aar')
+	     compile(name: 'libcommon-release', ext: 'aar')
+	     compile 'com.android.support:percent:23.1.0'
+        //必须添加
+         compile files('../../libs/paymax.jar')
+         compile(name: 'lkl-pay-sdk-release', ext: 'aar')
         }
 
 ##### 权限声明
@@ -205,6 +212,7 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
          */
          
          protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode!=FaceRecoSDK.REQUEST_CODE)return;
         switch (resultCode) {
 
             case Activity.RESULT_OK:
@@ -249,12 +257,18 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
 ***
 #### <font color=red>不使用人脸识别步骤：</font>
 
-1. 去掉如下文件：<br/>`facesdk-release.aar`<br/>
-`camera-release.aar`<br/>
-`idcardcaptorsdk-release.aar`<br/>
-`livenessdetectorsdk-release.aar`<br/>
-`livenessdetectionviewsdk-release.aar`<br/>
-
+1. 去掉如下文件：<br/>
+    	
+    ```
+         compile(name: 'facesdk-release', ext: 'aar')
+    	 compile(name: 'libimagecapture-release', ext: 'aar')
+    	 compile(name: 'libcamera-release', ext: 'aar')
+	     compile(name: 'libidcardcaptor-release', ext: 'aar')
+	     compile(name: 'liblivenessdetector2-release', ext: 'aar')
+	     compile(name: 'liblivenessdetectionview2-release', ext: 'aar')
+	     compile(name: 'libcommon-release', ext: 'aar')
+	     compile 'com.android.support:percent:23.1.0'
+```
 2. 修改项目的`gradle`文件进行如下配置
   
         repositories {
