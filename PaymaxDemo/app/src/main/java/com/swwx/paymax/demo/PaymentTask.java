@@ -3,8 +3,8 @@ package com.swwx.paymax.demo;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
@@ -26,13 +26,18 @@ class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
 
     PaymaxCallback mPaymaxCallback;
 
-    PaymentTask(Activity activity, PaymaxCallback paymaxCallback) {
+    private Button btn_ok;
+
+    PaymentTask(Activity activity, PaymaxCallback paymaxCallback, Button btn_ok) {
         this.mActivity = activity;
         this.mPaymaxCallback = paymaxCallback;
+        this.btn_ok = btn_ok;
     }
 
     @Override
     protected void onPreExecute() {
+        btn_ok.setEnabled(false);
+        btn_ok.setBackgroundResource(R.drawable.button_gray);
     }
 
     @Override
@@ -40,12 +45,8 @@ class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
         PaymentRequest paymentRequest = pr[0];
         String data = null;
         String json = new Gson().toJson(paymentRequest);
-        Log.d("PaymaxSDK", "json=" + json);
         try {
-
-            // 向 PaymaxSDK Server SDK请求数据
             data = postJson(URL_CHAGE_URL, json);
-            Log.d("PaymaxSDK", "data=" + data);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,6 +58,8 @@ class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
      */
     @Override
     protected void onPostExecute(String data) {
+        btn_ok.setEnabled(true);
+        btn_ok.setBackgroundResource(R.drawable.button_style);
         if (null == data || data.length() == 0) {
             Snackbar.make(mActivity.findViewById(android.R.id.content), "no data", Snackbar.LENGTH_LONG)
                     .setAction("Close", new View.OnClickListener() {
@@ -79,9 +82,7 @@ class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
         client.setConnectTimeout(5, TimeUnit.SECONDS);
         client.setReadTimeout(5, TimeUnit.SECONDS);
         Response response = client.newCall(request).execute();
-        Log.d("PaymaxSDK", "response code = " + response.code());
         return response.code() == 200 ? response.body().string() : null;
-
     }
 
 }

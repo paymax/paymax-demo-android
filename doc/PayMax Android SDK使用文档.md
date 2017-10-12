@@ -36,32 +36,6 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
    
          compile fileTree(dir: 'libs', include: ['*.jar'])  
 
-5. 如果需要使用拉卡拉支付与人脸识别, 找到`release` → `libs`目录, 将其放置到与您项目并行目录下, 并在您项目的`gradle`文件进行如下配置
-  
-        repositories {
-            flatDir {
-                dirs '../../libs'
-            }
-        }
-
-        dependencies {
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        
-        //使用人脸识别需要添加
-        compile(name: 'facesdk-release', ext: 'aar')
-        
-    	 compile(name: 'libimagecapture-release', ext: 'aar')
-    	 compile(name: 'libcamera-release', ext: 'aar')
-	     compile(name: 'libidcardcaptor-release', ext: 'aar')
-	     compile(name: 'liblivenessdetector2-release', ext: 'aar')
-	     compile(name: 'liblivenessdetectionview2-release', ext: 'aar')
-	     compile(name: 'libcommon-release', ext: 'aar')
-	     compile 'com.android.support:percent:23.1.0'
-        //必须添加
-         compile files('../../libs/paymax.jar')
-         compile(name: 'lkl-pay-sdk-release', ext: 'aar')
-        }
-
 ##### 权限声明
 
 
@@ -87,27 +61,9 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    
-    <!--人脸识别-->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
-
-
 
 ##### 注册 activity
-
-
-
-
-     <!--人脸识别-->
-      <activity
-            android:name="com.swwx.facesdk.ui.FaceLivenessActivity"
-            android:screenOrientation="portrait" />
-            
-            
+      
      <!-- 注册微信 -->
        <activity
             android:name="com.swwx.paymax.PaymentActivity"
@@ -183,110 +139,10 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
             android:configChanges="orientation"
             android:theme="@android:style/Theme.Translucent"
             />
-
-### 四、人脸识别
-
-发起支付前，最好先通过后台接口判断是否需要调起人脸识别。商户后台通过调用`Paymax Server SDK` 向paymax服务器发起请求，获得结果码的方式进行判断（已经识别过的用户可不用再次识别验证），详细步骤请参考Demo
-
-
-
-如果需要调用，请参考如下内容：
-
-    /**
-     * 调用人脸识别接口
-     *  uId             商户用户号
-     *  authorization   商户号(用户信息->开发信息->Live Secret Key)
-     *  realName        姓名
-     *  idCardNo        身份证
-     *  act             上下文
-     *
-     */
-     FaceRecoSDK.startReco(String uId, String authorization, String realName, String idCardNo, Activity act);
-     
-根据人脸识别结果进行相应处理，如下为处理情况，仅供参考：
-
-    
-        /**
-         * 人脸识别结果处理
-         * @param msg
-         */
-         
-         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode!=FaceRecoSDK.REQUEST_CODE)return;
-        switch (resultCode) {
-
-            case Activity.RESULT_OK:
-                //活体检测成功
-                break;
-
-            case Activity.RESULT_CANCELED: {
-                if (data != null) {
-                    int code = data.getIntExtra(FaceLivenessActivity.RESULT_VERIFY_CODE, ResponseHelper.UNKONW_ERROR);
-                    String msg = data.getStringExtra(FaceLivenessActivity.RESULT_VERIFY_MESSAGE);
-                    switch (code) {
-                        case ResponseHelper.CODE_LIVENESS_INITIALIZE_FAIL:
-                            msg = "活体检测初始化失败";
-                            break;
-
-                        case ResponseHelper.CODE_LIVENESS_FAIL:
-                            msg = "活体检测取样失败";
-                            break;
-                    }
-
-                 }
-            }
-            break;
-        }
-         
-          
- 
- 详细处理结果展示如下：
- 
-| Code                     |                   | 
-| -------------------------|:-----------------:| 
-| CODE_VERIFY_SUCCESS      | 人脸识别一致        |  
-| CODE_INCONFORMITY        | 人脸识别不一致      | 
-| CODE_VERIFY_FAILED       | 签名验证失败        |   
-| REQUEST_TIMESTAMP_EXPIRE | 时间戳过期或者提前   |   
-| ILLEGAL_ARGUMENT         | 非法参数           |    
-| ILLEGAL_DATA             | 请求数据非法        |    
-| IDCARDNO_ERROR           | 身份证号码不一致     |   
-| REALNME_IDCARD_NOT_SAME  | 姓名与身份证号不一致  |    
-| SERVER_ERROR             | 服务器内部异常       |     
-
-***
-#### <font color=red>不使用人脸识别步骤：</font>
-
-1. 去掉如下文件：<br/>
-    	
-    ```
-         compile(name: 'facesdk-release', ext: 'aar')
-    	 compile(name: 'libimagecapture-release', ext: 'aar')
-    	 compile(name: 'libcamera-release', ext: 'aar')
-	     compile(name: 'libidcardcaptor-release', ext: 'aar')
-	     compile(name: 'liblivenessdetector2-release', ext: 'aar')
-	     compile(name: 'liblivenessdetectionview2-release', ext: 'aar')
-	     compile(name: 'libcommon-release', ext: 'aar')
-	     compile 'com.android.support:percent:23.1.0'
-```
-2. 修改项目的`gradle`文件进行如下配置
-  
-        repositories {
-            flatDir {
-                dirs '../../libs'
-            }
-        }
-
-        dependencies {
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile(name: 'lkl-pay-sdk-release', ext: 'aar')
-        compile files('../../libs/paymax.jar')
-        }
-
-### 五、获得 Charge
+### 四、获得 Charge
 Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发起支付的必要参数。该参数需要请求用户服务器获得，服务端生成 charge 的方式参考 [Paymax 官方文档]。SDK 中的 demo 里面提供了如何获取 charge 的实例方法，供用户参考。
 
-### 六、发起支付     
+### 五、发起支付     
     /**
      * 发起支付
      * @param activity
@@ -299,7 +155,7 @@ Charge 对象是一个包含支付信息的 JSON 对象，是 `Paymax SDK` 发�
 
 
     
-#### 七、获取支付状态
+#### 六、获取支付状态
 从 `PaymaxCallback` 的 `onPayFinished()` 方法中获得支付结果。支付成功后，用户服务器也会收到Paymax 服务器发送的异步通知。 最终支付成功请根据服务端异步通知为准。
 
 

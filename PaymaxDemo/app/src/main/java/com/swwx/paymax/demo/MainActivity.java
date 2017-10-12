@@ -1,7 +1,5 @@
 package com.swwx.paymax.demo;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,46 +7,33 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-import com.swwx.paymax.PayLog;
 import com.swwx.paymax.PayResult;
 import com.swwx.paymax.PaymaxCallback;
 import com.swwx.paymax.PaymaxSDK;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
     private EditText amountEditText;
     private EditText useridEditText;
     private EditText time_expireEditText;
-
     private String currentAmount = "";
-
     private ImageButton ibWechat;
     private ImageButton ibAlipay;
     private ImageButton ibLKL;
-
     protected double amount = 0.0;
     protected String userid = "";
     protected long time_expire ;
-
     private int channel = PaymaxSDK.CHANNEL_ALIPAY;
+    private Button btn_ok;
 
     /**
      * 支付宝支付渠道
@@ -70,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btn_ok = (Button) findViewById(R.id.bt_ok);
         ImageView ivWX = (ImageView) findViewById(R.id.iv_wx);
         ivWX.setImageResource(R.drawable.wx);
         ImageView ivAli = (ImageView) findViewById(R.id.iv_ali);
@@ -131,15 +117,15 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
 
             switch (channel) {
                 case PaymaxSDK.CHANNEL_WX:
-                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid,time_expire));
+                    new PaymentTask(MainActivity.this, MainActivity.this, btn_ok).execute(new PaymentRequest(CHANNEL_WECHAT, amount, "测试商品007", "测试商品Body", userid,time_expire));
                     break;
 
                 case PaymaxSDK.CHANNEL_ALIPAY:
-                    new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid,time_expire));
+                    new PaymentTask(MainActivity.this, MainActivity.this, btn_ok).execute(new PaymentRequest(CHANNEL_ALIPAY, amount, "测试商品007", "测试商品Body", userid,time_expire));
                     break;
 
                 case PaymaxSDK.CHANNEL_LKL: {
-                    new FaceTask().execute(new FaceRequest("123", "123", userid));
+                    new PaymentTask(MainActivity.this, MainActivity.this, btn_ok).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid,time_expire));
                 }
                 break;
             }
@@ -241,101 +227,6 @@ public class MainActivity extends AppCompatActivity implements PaymaxCallback {
         String replaceable = String.format("[%s, \\s.]", NumberFormat.getCurrencyInstance(Locale.CHINA).getCurrency().getSymbol(Locale.CHINA));
         String cleanString = amountText.replaceAll(replaceable, "");
         return Double.valueOf(new BigDecimal(cleanString).toString());
-    }
-
-    class FaceTask extends AsyncTask<FaceRequest, Void, String> {
-
-
-        public FaceTask() {
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected String doInBackground(FaceRequest... pr) {
-            FaceRequest faceRequest = pr[0];
-            String data = null;
-            String json = new Gson().toJson(faceRequest);
-            Log.d("FaceRecoSDK", "json=" + json);
-            try {
-
-                // 向 PaymaxSDK Server SDK请求数据
-                String url = String.format("https://www.paymax.cc/mock_merchant_server/v1/face/auth/%s/product", pr[0].uId);
-                data = postJson(url, json);
-                Log.d("FaceRecoSDK", "data=" + data);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return data;
-        }
-
-
-        @Override
-        protected void onPostExecute(String data) {
-            if (null == data || data.length() == 0) {
-                Snackbar.make(findViewById(android.R.id.content), "no face data", Snackbar.LENGTH_LONG)
-                        .setAction("Close", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                            }
-                        }).show();
-            } else if (getRtn(data)) {
-                new PaymentTask(MainActivity.this, MainActivity.this).execute(new PaymentRequest(CHANNEL_LKL, amount, "测试商品007", "测试商品Body", userid,time_expire));
-            } else {
-                Intent intent = new Intent(MainActivity.this, InputActivity.class);
-                intent.putExtra("amount", amount);
-                intent.putExtra("userid", userid);
-                intent.putExtra("time_expire", time_expire);
-
-                startActivity(intent);
-            }
-        }
-    }
-
-    class FaceRequest {
-        String key;//商户key
-        String merchantNo;//商户号
-        String uId;//商户用户id， 在商户系统能唯一标示某个用户商户用户名
-
-        public FaceRequest(String key, String merchantNo, String uId) {
-            this.key = key;
-            this.merchantNo = merchantNo;
-            this.uId = uId;
-        }
-    }
-
-
-    /**
-     * 获得返回结果码,来判断此用户是否通过人脸识别
-     *
-     * @param data
-     * @return
-     */
-    private boolean getRtn(String data) {
-        boolean flag = false;
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            flag = jsonObject.optBoolean("authValid");
-        } catch (Exception e) {
-            PayLog.e(e);
-        }
-        return flag;
-    }
-
-
-    private String postJson(String url, String json) throws IOException {
-        MediaType type = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(type, json);
-        Request request = new Request.Builder().url(url).get().build();
-        OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(5, TimeUnit.SECONDS);
-        client.setReadTimeout(5, TimeUnit.SECONDS);
-        Response response = client.newCall(request).execute();
-        Log.d("PaymaxSDK", "response code = " + response.code());
-        return response.body().string();
-
     }
 
 }
