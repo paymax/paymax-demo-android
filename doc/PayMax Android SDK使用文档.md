@@ -90,7 +90,6 @@ Paymax SDK 为开发者提供了demo 程序，可以快速体验 Paymax 接入�
         
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_StartJarActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent"  />
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_LoginActivity"

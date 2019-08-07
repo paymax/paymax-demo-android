@@ -44,10 +44,6 @@
         </activity>
 
         <activity
-            android:name="com.swwx.paymax.demo.InputActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.swwx.paymax.PaymentActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -70,7 +66,6 @@
         <!-- 以下为商户APP对接SDK时需要注册的页面 -->
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_StartJarActivity"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name="com.lkl.pay.ui.activity.SDK_LoginActivity"

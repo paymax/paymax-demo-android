@@ -69,8 +69,6 @@ class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
                     }).show();
             return;
         }
-
-
         PaymaxSDK.pay(mActivity, data, mPaymaxCallback);
     }
 
