@@ -1,4 +1,4 @@
 .idea/encodings.xml
 .gradle
-/.idea
-/PaymaxDemo/app/build
+PaymaxDemo/.idea
+PaymaxDemo/app/build
