@@ -2,3 +2,4 @@
 .gradle
 PaymaxDemo/.idea
 PaymaxDemo/app/build
+.DS_Store
